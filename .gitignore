@@ -1,0 +1,7 @@
+# The local denylist names what must never be published. It is never published either.
+.scrub-denylist
+
+node_modules/
+*.log
+.DS_Store
+Thumbs.db

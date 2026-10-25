@@ -1,0 +1,2 @@
+The owner is not subject to row-level security, so a matrix run as the owner
+gives the same verdict on the broken and the fixed database.

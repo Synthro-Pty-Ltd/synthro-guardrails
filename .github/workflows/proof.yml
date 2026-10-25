@@ -1,0 +1,28 @@
+name: proof
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scrub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Scrub checker proves itself
+        run: node scripts/scrub-check.mjs --self-test
+      - name: Scan the repository (built-in rules; the private denylist runs locally before each release)
+        run: node scripts/scrub-check.mjs
+
+  migration-rounds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prove every case in both directions on a throwaway Postgres
+        run: bash packs/migration-rounds/proof/run.sh
